@@ -312,5 +312,36 @@ Utilizando agora o useParams() para trazer o id que o usuario acessa a pagina
 
 ```tsx
 import { useParams } from "react-router-dom";
-const { id } = useParams(); // assim conseguimos pegar o id 
+const { id } = useParams(); // assim conseguimos pegar o id
 ```
+
+## Carregando dado individual
+
+- Graças ao passo dado na aula passada o carregamento individual de um produto será fácil;
+- Vamos utilizar o id recebido para forma a nova URL;
+- E por fim podemos utilizar o hook useFetch() pára trazer o item;
+- Por fim faremos a validação e impresão do mesmo no JSX;
+
+Product.js
+
+```tsx
+// criando variavel url
+const url = "http://localhost:3000/products" + id;
+// carregamento dado individual
+
+const { data: product, error, loading } = useFetch(url);
+
+// exibindo na tela o produto
+
+return (
+    <>
+        {error && <p>Ocoreu um erro...</p>}
+        {loading && <p>Carregando...</p>}
+        {products && (
+            <h1>{products.name}</h1>
+            <p>{products.price}</p>
+        ) }
+    </>
+)
+```
+
