@@ -546,3 +546,21 @@ export const Search = () => {
   );
 };
 ```
+
+## Redirect
+
+- Podemos precisar de um redirecionamente de paginas eventualmente
+- Exemplo uma pagina antiga do sistema responde agora a uma nova URL
+- Para isso vamos criar a rota com Route normalmente
+- Mas em element vamos utilizar o component Navigate com um to que vai para a rota correta
+- vamos ver
+
+Criando mais uma rota no
+ App.js
+Porem redirecionando usando Navigate com to para pagina que queremos que ele va 
+```tsx
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+<Route path="/contact" element={<Navigate to={"/about"} />} />;
+```
+
+
