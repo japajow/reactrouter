@@ -3,6 +3,7 @@ import "./App.css";
 import { Navbar } from "./components/Navbar/Navbar";
 import { About } from "./pages/About/About";
 import { Home } from "./pages/Home/Home";
+import { Product } from "./pages/Product/Product";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/products/:id" element={<Product/>}/>
         </Routes>
       </BrowserRouter>
     </div>

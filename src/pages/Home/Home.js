@@ -17,6 +17,7 @@ export const Home = () => {
             <li key={product.id}>
               <h2>{product.name}</h2>
               <p>R$ {product.price}</p>
+              <Link to={`/products/${product.id}`}>Detalhes</Link>
             </li>
           ))}
       </ul>

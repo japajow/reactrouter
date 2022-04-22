@@ -248,24 +248,69 @@ export const Home = () => {
 Estilizando a home.js
 
 ```css
-
-    .products {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+.products {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.products li{
-    border: 1px solid #efefef;
-    border-radius: 5px;
-    padding: 10px;
-    text-align: center;
-    list-style: none;
-    margin: 0 10px;
-    width: 25%;
+.products li {
+  border: 1px solid #efefef;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  list-style: none;
+  margin: 0 10px;
+  width: 25%;
 }
-
 ```
 
+## Rota dinâmica
 
+- Para criar uma rota dinâmica vamos precisar uma nova Route em App.js;
+- Que deve ter o padrão de/product:id/;
+- Onde :id é o dinâmico, ou seja, podemos ter qualquer valor;
+- Na página podemos utilizar o hook useParams() para resgatar esta informação;
+
+Criando pasta src/pages/Product/Product.js
+
+```tsx
+import React from "react";
+
+export const Product = () => {
+  return <div>Product</div>;
+};
+```
+
+acrescentando uma nova rota para o product
+
+```tsx
+// <BrowserRouter>
+//   <Navbar />
+//   <Routes>
+//     <Route path="/" element={<Home />} />
+//     <Route path="/about" element={<About />} />
+<Route path="/products/:id" element={<Product />} />
+//   </Routes>
+// </BrowserRouter>
+```
+
+Vamos no component Home.js
+
+```tsx
+// acrecentamos o Link no produto
+
+<li key={product.id}>
+  <h2>{product.name}</h2>
+  <p>R$ {product.price}</p>
+  <Link to={`/products/${product.id}`}>Detalhes</Link>
+</li>
+```
+
+Utilizando agora o useParams() para trazer o id que o usuario acessa a pagina
+
+```tsx
+import { useParams } from "react-router-dom";
+const { id } = useParams(); // assim conseguimos pegar o id 
+```
