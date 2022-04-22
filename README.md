@@ -389,4 +389,15 @@ Criando uma nova rota
 <Route path="/products/:id/info" element={<Info />} />
 ```
 
+## No match rouite 404 
 
+- Podemos cruar uma página 404 facilmente com o React router
+- Basta criarmos o component da página
+- E no arquivo App.js definir um path como *
+- Desta maneira, qualquer rota que não existir cairá neste componente
+
+Criar uma pasta pages/NotFound.js
+Criar uma rota no App.js * 
+
+
+## Link 
