@@ -414,3 +414,135 @@ Navbar.js trocando Link para NavLink
       <NavLink to={'/about'}>Sobre</NavLink>
 
 ```
+
+## Search Params
+
+- Serach Params e um recurso que permite obter o que vem na URL em forma de parametro ex produtos?q=camisa
+- Utilizamos o hook useSearchParams para obtelos
+- Com este recurso fica simples fazer uma funcionalidadede busca no sistema
+
+vamos no App.js e criar um input de busca
+
+```tsx
+// <BrowserRouter>
+<Navbar />
+//   <SearchForm />
+//   <Routes>
+//     <Route path="/" element={<Home />} />
+//     <Route path="/about" element={<About />} />
+//     <Route path="/products/:id/info" element={<Info />} />
+//     <Route path="/products/:id" element={<Product />} />
+//     <Route path="*" element={<NotFound />} />
+//   </Routes>
+// </BrowserRouter>
+```
+
+Criamos o components/SearchForm/SerachForm.js SearchForm.css
+
+```tsx
+// importamos o useNavigate() // para poder redirecionar dentro do componente
+import { useNavigate } from "react-router-dom";
+
+// importando useState
+import { useState } from "react";
+
+// criamos uma variavel que pega useNavigate
+const navigate = useNavigate();
+
+// Criamos um estado que pega os dados digitado no input para pesquisa
+const [query, setQuery] = useState();
+
+//Criamos o handleSubmit para quando submeter
+const handleSubmit = (e) => {
+  // usamos o prevent default
+  e.preventDefault();
+
+  //quando pegar os dados faz a navegacao
+  navigate("search?q=" + query);
+
+  //Criamos o formulario JSX
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" onChange={(e) => setQuery(e.target.value)} />
+      <input type="submit" value="Buscar" />
+    </form>
+  );
+};
+```
+
+Criamos a pages/Search/Search.js Search.css
+
+```tsx
+import React from "react";
+import "./Search.css";
+
+export const Search = () => {
+  return <div>Search</div>;
+};
+```
+
+Vamos no App.js e criamos a pagina de busca na rotas
+
+```tsx
+// <BrowserRouter>
+//     <Navbar />
+//     <SearchForm />
+//     <Routes>
+//       <Route path="/" element={<Home />} />
+//       <Route path="/about" element={<About />} />
+//       <Route path="/products/:id/info" element={<Info />} />
+//       <Route path="/products/:id" element={<Product />} />
+<Route path="/search" element={<Search />} />
+//       <Route path="*" element={<NotFound />} />
+//     </Routes>
+//   </BrowserRouter>
+```
+
+Agora no Search.js
+
+```tsx
+//importamos o useSearchParams
+import { useSearchParams, Link } from "react-router-dom";
+import { useFetch } from "../../hooks/useFetch";
+
+// criamos uma variavel que pega o valor com useSearchParams
+const [searchParams] = useSearchParams();
+
+// const url
+const url = "http://localhost:3000/products?" + searchParams;
+
+//agora usamos nosso hook useFetch()
+const { data: product, httpConfig, error, loading } = useFetch(url);
+
+//Criamos o nosso JSX que ficaria o search completo abaixo
+
+import React from "react";
+import { useSearchParams, Link } from "react-router-dom";
+import { useFetch } from "../../hooks/useFetch";
+
+import "./Search.css";
+
+export const Search = () => {
+  const [searchParams] = useSearchParams();
+  const url = "http://localhost:3000/products?" + searchParams;
+  const { data: product, error, httpConfig, loading } = useFetch(url);
+
+  return (
+    <>
+      <h1>Resultados disponiveis: </h1>
+      {error && <p>{error}</p>}
+      <ul className="products">
+        {product &&
+          product.map((product) => (
+            <li key={product.id}>
+              <h2>{product.name}</h2>
+              <p>R$ {product.price}</p>
+              <Link to={`/products/${product.id}`}>Detalhes</Link>
+            </li>
+          ))}
+      </ul>
+    </>
+  );
+};
+```
