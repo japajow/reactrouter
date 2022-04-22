@@ -389,15 +389,28 @@ Criando uma nova rota
 <Route path="/products/:id/info" element={<Info />} />
 ```
 
-## No match rouite 404 
+## No match rouite 404
 
 - Podemos cruar uma página 404 facilmente com o React router
 - Basta criarmos o component da página
-- E no arquivo App.js definir um path como *
+- E no arquivo App.js definir um path como \*
 - Desta maneira, qualquer rota que não existir cairá neste componente
 
 Criar uma pasta pages/NotFound.js
-Criar uma rota no App.js * 
+Criar uma rota no App.js \*
 
+## Link Ativo
 
-## Link 
+- Para ter fácil acesso a uma modificação para os links ativos vamos trocar o Link pelo NavLink
+- Neste eleento temos acesso a um valor chamado isActive
+- Ou seja, podemos ativar uma classe se a rota atual for a que está no atributo to
+
+Navbar.js trocando Link para NavLink
+
+```tsx
+    // quando queremos usar o isActive e modificar ativo e nao ativo seria assim
+    <NavLink to={'/'} className={({isActive}) => isActive ? 'ativo': 'nao-ativo'}>Home</NavLink>
+    //active vem por padrao no NavLink
+      <NavLink to={'/about'}>Sobre</NavLink>
+
+```
