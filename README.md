@@ -345,3 +345,48 @@ return (
 )
 ```
 
+## Nested route
+
+- As nested routes indicam URLs mais complexas , como: /products/:id/alguimacoisa
+- Neste caso vamos precisar criar um componente que comrresponda com o padrão e também a URL em App.js;
+- Na nested route teremos o acesso ao parâmetro da URL também;
+
+```tsx
+// import React from "react";
+// import { useParams, Link } from "react-router-dom";
+// import { useFetch } from "../../hooks/useFetch";
+
+// export const Product = () => {
+//   const { id } = useParams();
+
+//   const url = "http://localhost:3000/products/" + id;
+
+//   const { data: product, loading, error } = useFetch(url);
+
+//   console.log(product);
+
+//   return (
+//     <>
+//       {error && <p>Ocorreu um erro...</p>}
+//       {loading && <p>Carregando...</p>}
+//       {product && (
+<>
+  <h2>{product.name}</h2>
+  <p>R$ {product.price}</p>
+  <Link to={`/products/${product.id}/info`}>Mais informação</Link>
+</>
+//       )}
+//     </>
+//   );
+// };
+```
+
+Criando o component Info
+
+Criando uma nova rota
+
+```tsx
+<Route path="/products/:id/info" element={<Info />} />
+```
+
+
